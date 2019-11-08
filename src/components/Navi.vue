@@ -42,7 +42,7 @@ export default {
 }
 .navi {
   width: 100%;
-  height: 10vh;
+  height: 4rem;
   background-color: white;
   display: flex;
   .logo-box {
