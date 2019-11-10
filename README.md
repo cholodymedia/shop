@@ -1,5 +1,7 @@
 # shop
 
+See [Website](https://dreamy-mayer-5695dd.netlify.com)
+
 ## Project setup
 ```
 npm install
