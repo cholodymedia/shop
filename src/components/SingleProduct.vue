@@ -6,7 +6,7 @@
     <div class="right">
       <span class="name">{{name}}</span>
       <span class="company">{{company}}</span>
-      <span class="price"><span class="light">Cena:</span> {{price}} zł</span>
+      <span class="price"><span class="light">Price:</span> {{price}} $</span>
       <div class="button-box">
         <div class="quantity">
           <div class="minus" @click="handleMinus"><font-awesome-icon icon="minus"/></div>
@@ -15,13 +15,15 @@
           </div>
           <div class="plus" @click="handlePlus"><font-awesome-icon icon="plus"/></div>
         </div>
-        <div class="add">Do koszyka</div>
+        <div class="add" @click="add">Add to cart</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'SingleProduct',
   props: {
@@ -37,6 +39,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['checkAndAdd']),
     handleMinus() {
       if (this.quantity > 0) {
         this.quantity -= 1;
@@ -44,6 +47,11 @@ export default {
     },
     handlePlus() {
       this.quantity += 1;
+    },
+    add() {
+      if (this.quantity) {
+        this.checkAndAdd({ id: this.product_id, quantity: this.quantity });
+      }
     },
   },
 };
@@ -61,7 +69,7 @@ export default {
     font-size: 1.1rem;
   }
   .box {
-    width: 80%;
+    width: 40rem;
     height: 200px;
     background: white;
     margin-top: 50px;

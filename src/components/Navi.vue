@@ -4,15 +4,16 @@
       <img :src="logo" alt="logo">
     </div>
     <div class="counter-box">
-      <div class="counter">
+      <div class="counter" @click="cartView">
         <font-awesome-icon icon="shopping-cart" class="icon"></font-awesome-icon>
-        <span :class="numberColor">{{list.length}}</span>
+        <span :class="numberColor">{{totalQuantity}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import image from '@/assets/logo.png';
 
 export default {
@@ -20,12 +21,18 @@ export default {
   data() {
     return {
       logo: image,
-      list: [],
     };
   },
+  methods: {
+    ...mapActions(['changeCartView']),
+    cartView() {
+      this.changeCartView();
+    },
+  },
   computed: {
+    ...mapGetters(['totalQuantity']),
     numberColor() {
-      return (this.list.length === 0) ? 'grey' : 'green';
+      return (this.totalQuantity === 0) ? 'grey' : 'green';
     },
   },
 };
@@ -52,7 +59,7 @@ export default {
     justify-content: center;
     align-items: center;
     img {
-      width: 40%;
+      width: 3rem;
     }
   }
   .counter-box {
@@ -70,6 +77,7 @@ export default {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      cursor: pointer;
       .icon {
         color: #35495E;
         font-size: 1.3rem;
